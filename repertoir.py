@@ -71,7 +71,7 @@ class Repertoire:
         '''Rechercher un contact. Vous pouvez saisir son nom ou son prenom ou encore son numero, des type str valeur par défaut None'''
         def forme(index:int, value:str):
             '''Cette fonction permet d'éviter les répetition'''
-            with open("repertoire.csv",'r', encoding='utf-8') as fichier:
+            with open(self.fichier,'r', encoding='utf-8') as fichier:
                 reader = csv.reader(fichier)
                 for data in reader:
                     if data != []:
@@ -91,7 +91,7 @@ class Repertoire:
         def forme(index, value):
             '''Cette fonction permet d'éviter les répetition'''
             contacts = []
-            with open("repertoire.csv",'r', encoding='utf-8') as fichier:
+            with open(self.fichier,'r', encoding='utf-8') as fichier:
                 reader = csv.reader(fichier)
                 for i in reader:
                     if i != []:
@@ -136,7 +136,7 @@ class Repertoire:
     def afficher_repertoire(self):
         '''Cette méthode permet d'affciher tout le répertoire! elle ne prends pas de paramétres'''
         repertoire = []
-        with open("repertoire.csv",'r', encoding='utf-8') as fichier:
+        with open(self.fichier,'r', encoding='utf-8') as fichier:
             reader = csv.reader(fichier)
             for data in reader:
                 if data != []:
