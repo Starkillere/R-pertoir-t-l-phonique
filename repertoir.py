@@ -57,41 +57,41 @@ class Repertoire:
                 return False
         return True
                     
-    def ajouter_contact(self, NOM:str, Prenom:str, numero:str):
+    def ajouter_contact(self, nom:str, prenom:str, numero:str):
         '''Ajouter un nouveau contact, paramétres obligatoir nom prénom, numéro, le numéro de type str'''
         if self.__verifier_contact(numero):
             with open("repertoire.csv",'a', encoding='utf-8') as fichier:
               csv_writer = csv.writer(fichier, delimiter=',')
-              csv_writer.writerow([NOM.capitalize(), Prenom.capitalize(), numero])
+              csv_writer.writerow([nom.capitalize(), prenom.capitalize(), numero])
             return True    
         else:
             return False
 
-    def rechercher_contact(self, NOM:str=None, Prenom:str=None, numero:str=None):
+    def rechercher_contact(self, nom:str=None, prenom:str=None, numero:str=None):
         '''Rechercher un contact. Vous pouvez saisir son nom ou son prenom ou encore son numero, des type str valeur par défaut None'''
         def forme(index:int, value:str):
             '''Cette fonction permet d'éviter les répetition'''
-            with open(self.fichier,'r', encoding='utf-8') as fichier:
+            with open("repertoire.csv",'r', encoding='utf-8') as fichier:
                 reader = csv.reader(fichier)
                 for data in reader:
                     if data != []:
                         if data[index] == value.capitalize():
                          return data
-        if NOM != None:
-            return forme(0, NOM)
-        elif Prenom != None:
-            return forme(1, Prenom)
+        if nom != None:
+            return forme(0, nom)
+        elif prenom != None:
+            return forme(1, prenom)
         elif numero != None:
             return forme(2, numero)
         else:
             return False
     
-    def supprimer_contact(self, NOM:str=None, Prenom:str=None, numero:str=None):
+    def supprimer_contact(self, nom:str=None, prenom:str=None, numero:str=None):
         '''Spprimer un contact. Vous pouvez saisir son nom ou son prenom ou encore son numero, des type str valeur par défaut None'''
         def forme(index, value):
             '''Cette fonction permet d'éviter les répetition'''
             contacts = []
-            with open(self.fichier,'r', encoding='utf-8') as fichier:
+            with open("repertoire.csv",'r', encoding='utf-8') as fichier:
                 reader = csv.reader(fichier)
                 for i in reader:
                     if i != []:
@@ -101,30 +101,30 @@ class Repertoire:
                 csv_writer = csv.writer(fichier, delimiter=',')
                 for i in contacts:
                     csv_writer.writerow(i)
-        if NOM != None:
-            return forme(0, NOM)
-        elif Prenom != None:
-            return forme(1, Prenom)
+        if nom != None:
+            return forme(0, nom)
+        elif prenom != None:
+            return forme(1, prenom)
         elif numero != None:
             return forme(2, numero)
         else:
             return False
 
-    def modifier_contact(self, NOM:str=None, Prenom:str=None, numero:str=None, new_NOM:str=None, new_Prenom:str=None, new_numero:str=None):
+    def modifier_contact(self, nom:str=None, prenom:str=None, numero:str=None, new_nom:str=None, new_prenom:str=None, new_numero:str=None):
         '''Modifier un contact, permet de modifier un contact:
-            - Pour modifier son nom il faut saisir en paramétre: son nom dans la variable NOM et son nouveau nom dans la variable new_NOM.
-            - Pour modifier son prénom il faut saisir en paramétre: son prénom dans la variable Prenom et son nouveau prénom dans la variable new_Prénom.
+            - Pour modifier son nom il faut saisir en paramétre: son nom dans la variable nom et son nouveau nom dans la variable new_nom.
+            - Pour modifier son prénom il faut saisir en paramétre: son prénom dans la variable prenom et son nouveau prénom dans la variable new_Prénom.
             - Pour modifier son numéro il faut saisir en paramétre: son numéro dans la variable numero et son nouveau nom dans la variable new_numero.
         '''
-        contact_a_modifier = self.rechercher_contact(NOM, Prenom, numero)
+        contact_a_modifier = self.rechercher_contact(nom, prenom, numero)
         self.supprimer_contact(contact_a_modifier)
         contact_modifier = []
-        if new_NOM != None:
-            contact_modifier.append(new_NOM)
+        if new_nom != None:
+            contact_modifier.append(new_nom)
         else:
             contact_modifier.append(contact_a_modifier[0])
-        if new_Prenom != None:
-            contact_modifier.append(new_Prenom)
+        if new_prenom != None:
+            contact_modifier.append(new_prenom)
         else:
             contact_modifier.append(contact_a_modifier[1])
         if new_numero != None:
@@ -136,7 +136,7 @@ class Repertoire:
     def afficher_repertoire(self):
         '''Cette méthode permet d'affciher tout le répertoire! elle ne prends pas de paramétres'''
         repertoire = []
-        with open(self.fichier,'r', encoding='utf-8') as fichier:
+        with open("repertoire.csv",'r', encoding='utf-8') as fichier:
             reader = csv.reader(fichier)
             for data in reader:
                 if data != []:
@@ -150,29 +150,29 @@ class Repertoire:
 	              'h', 'i', 'j', 'k', 'l', 'm', 'n',
 	              'v', 'w', 'x', 'y', 'z',]
 
-        Nombre = ['1', '2', '3', '4','5', '6', '7', '8', '9', '0']
-        DEPARTEMENT = ['0692','0693','0262']
+        nombre = ['1', '2', '3', '4','5', '6', '7', '8', '9', '0']
+        departement = ['0692','0693','0262']
 
-        NOM  = ''
-        Prenom = ''
+        nom  = ''
+        prenom = ''
         numero = ''
 
-        #Nom aléatoir
+        #nom aléatoir
         for i in range(random.choice([3,4,5,6,7])):
-            NOM += random.choice(lettre).upper()
+            nom += random.choice(lettre).upper()
 
         #Prénom alèatoir
         for i in range(random.choice([3,4,5,6,7])):
-            Prenom += random.choice(lettre)
-        Prenom = Prenom.capitalize()
+            prenom += random.choice(lettre)
+        prenom = prenom.capitalize()
 
         #numéro aléatoir
-        numero += random.choice(DEPARTEMENT)
+        numero += random.choice(departement)
         for i in range(6):
-            numero += random.choice(Nombre)
+            numero += random.choice(nombre)
 
-        self.ajouter_contact(NOM, Prenom, numero)
-        return [NOM, Prenom, numero]
+        self.ajouter_contact(nom, prenom, numero)
+        return [nom, prenom, numero]
 
 ###CLASS APP###
 class App(Frame):
