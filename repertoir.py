@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 
 ####IMPORTATION####
+import tkinter as tk
 from tkinter import*
 import csv
 import random
+from tkinter.font import BOLD
 
 ### CLASS Repertoire ###
 class Repertoire:
@@ -175,23 +177,57 @@ class Repertoire:
         return [nom, prenom, numero]
 
 ###CLASS APP###
-class App(Frame):
+class App():
 
-    '''class App qui hérite de la class Frame du module tkinter, crée une fenêtre GUI
+    '''class App crée une fenêtre GUI
     '''
-
     def __init__(self, root):
-        super().__init__(root)
-    def fenetre(self):
-        pass
+        #Fenetre principale
+        self.repertoir = Repertoire()
+        self.text_var = StringVar()
+        self.root = root
+        self.root.geometry("1000x700")
+        self.root.title("Répertoire")
+        self.root.config(background="#73878F")
+
+        self.label = Label(root, text="Bienvenue dans votre répertoire !", bg="#73878F", fg='#000506', font=('Arial', 30, 'bold'))
+        self.entry = tk.Entry(root, width=30, border=10, fg='blue', font=('Arial', 12, 'bold'), textvariable=self.text_var)
+        self.saisie = self.entry.get()
+
+        self.b1 = Button(root, text ="Rechercher un contact", relief=RAISED, command=self._rechercher)
+        self.b2 = Button(root, text ="Supprimer un contact", relief=RAISED)
+        self.b3 = Button(root, text ="Modifier un contact", relief=RAISED)
+        self.b4 = Button(root, text ="Afficher tout les contacte du répertoir", relief=RAISED)
+        self.b5 = Button(root, text ="Génerer un contatct aléatoir", relief=RAISED)
+
+        #coller a la fennetre
+        self.label.place(x=300,y=10)
+        self.entry.place(x=300,y=100,width=450,height=450)
+        self.b1.place(x=175,y=100)
+        self.b2.place(x=178,y=150)
+        self.b3.place(x=188,y=200)
+        self.b4.place(x=100,y=250)
+        self.b5.place(x=150,y=300)
     
+    def __confirme(self, valeur=''):
+        pass
+        '''
+        self.entry.insert(END, valeur)
+        '''
+    
+    def _rechercher(self):
+        self.text_var.set('saisisez le nom de votre contact après avoir supprimer ce message!')
+        confirmer = Button(self.root, text ="Confirmer", relief=RAISED, command=self.__confirme(self.repertoir.rechercher_contact(self.saisie)))
+        confirmer.place(x=500,y=100)
+
+
     def mainloop(self):
-        mainloop()
+        self.root.mainloop()
 
 def main():
-    mon_repertoire =  Repertoire()
-    nouveau_contact = mon_repertoire.randome_contact()
-    print(nouveau_contact)
+    root = tk.Tk()
+    app = App(root)
+    app.mainloop()
 
 if __name__ == '__main__':
     main()
