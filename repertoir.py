@@ -198,7 +198,6 @@ class App():
 
         self.label = Label(root, text="Bienvenue dans votre répertoire !", bg="#73878F", fg='#000506', font=('Arial', 30, 'bold'))
         self.entry = tk.Entry(root, width=30, border=10, fg='blue', font=('Arial', 12, 'bold'), textvariable=self.text_var)
-        self.saisie = self.entry.get()
 
         self.b1 = Button(root, text ="Rechercher un contact", relief=RAISED, command=self._rechercher)
         self.b2 = Button(root, text ="Supprimer un contact", relief=RAISED,command=self._supprimer)
@@ -217,9 +216,10 @@ class App():
         self.b5.place(x=150,y=300)
         self.b6.place(x=500,y=100)
 
-    def __confirme(self,):
+    def __confirme(self):
+        self.saisie = self.text_var.get()
         if self.rechercher:
-           self.text_var.set(self.repertoir.rechercher_contact(self.saisie))
+           self.text_var.set(self.repertoir.rechercher_contact(nom=self.saisie))
            self.rechercher = False
         elif self.supprimer:
             self.repertoir.supprimer_contact(nom=self.saisie)
@@ -268,6 +268,7 @@ def main():
     root = tk.Tk()
     app = App(root)
     app.mainloop()
+
 
 if __name__ == '__main__':
     main()
