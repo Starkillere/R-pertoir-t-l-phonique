@@ -96,9 +96,9 @@ def importation(fichier_user:str):
     assert type(fichier_user) == str
     with open(fichier_user, 'r', encoding='utf-8') as fichier:
         contacts = [dict(contact) for contact in csv.DictReader(fichier)]
-    with open('repertoire.csv', 'a', encoding='utf-8') as fichier:
+    with open('repertoire.csv', 'a', encoding='utf-8', newline='') as fichier:
         writer = csv.writer(fichier, delimiter=',')
-        if contacts[0].keys() == ['nom', 'prenom', 'telephone']:
+        if list(contacts[0].keys()) == ['nom', 'prenom', 'telephone']:
             for contact in contacts:
                 if ' ' in contact['prenom'].strip():
                     cap_prenom = ''
@@ -107,6 +107,6 @@ def importation(fichier_user:str):
                     contact['prenom'] = cap_prenom.strip()
                 else:
                     contact['prenom'] = contact['prenom'].capitalize()
-                writer.writerow([contact['nom'].upper(), contact['prenom'], contact['telephonne']])
-            else:
-                return False
+                writer.writerow([contact['nom'].upper(), contact['prenom'], contact['telephone']])
+        else:
+            return False
