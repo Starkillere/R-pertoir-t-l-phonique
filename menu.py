@@ -127,8 +127,8 @@ class Ui_menu(object):
 "font: 14pt \"Segoe Script\";")
         elif self.is_import:
             self.is_import = False
-            fichier = self.label_fichier.text()
-            if not fonction.importation(fichier):
+            fichier = self.lineEdit_fichier.text()
+            if fonction.importation(fichier) == False:
                self.affichage.append('Votre fichier ne contient pas les en-têtes (nom, prenom, telephone)' )
             else:
                self.affichage.append('Successfull') 
