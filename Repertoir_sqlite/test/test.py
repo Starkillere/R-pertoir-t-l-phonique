@@ -35,7 +35,6 @@ if __name__ == '__main__':
             parent_directory = os.path.split(parent_directory)[0]
 
         file_path = os.path.join(parent_directory, path)
-        print('\\'+file_path)
         return file_path
     con = sqlite3.connect(getParent('contact.bd'))
     cursor = con.cursor()
